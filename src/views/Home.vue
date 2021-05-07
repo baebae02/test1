@@ -1,36 +1,42 @@
 <template>
   <header class="main">
-    <h1 class="logo">To Do List</h1>
-    <div id="clock">
+          <h1 class="logo">To Do List</h1>
+      <div id="clock">
       <v-icon small></v-icon> {{ date }}
       <br />
       <v-icon small></v-icon> {{ time }}
     </div>
     <div class="list">
-     <notebox todolist="Study"></notebox>
-     <notebox todolist="Class"></notebox>
-     <notebox todolist="Dinner"></notebox>
-    <TodoCreator class="todo-app__creator"></TodoCreator>
+      <div>
+        <div id="todo"
+          v-for="(content, index)  in dummyList"
+          v-bind:key=index>
+          <p class="text">
+            {{content.text}}
+          </p>
+        <button id="deletebtn"  @click="deleteTodo(index)">X</button>
+        </div>
+      </div>
+    </div>
+       <div id="creator">
+          <div>
+            <input type="text" class="input-todo"  v-model="todo" placeholder="Enter to do"
+              v-on:keyup.enter="addTodo">
+           <button type="submit" @click="addTodo">add</button>
+         </div>
     </div>
   </header>
 </template>
 
 <script>
 // @ is an alias to /src
-import notebox from "@/components/notebox.vue";
-import TodoCreator from "@/components/TodoCreator.vue";
+
+const dummyList = [
+];
+
 export default {
   name: "Home",
   components: {
-    TodoCreator,
-    notebox,
-  },
-  data() {
-    return {
-      week: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
-      time: "",
-      date: "",
-    };
   },
   mounted() {
     setInterval(this.updateTime, 1000); // 1초마다 시간 갱신
@@ -62,6 +68,33 @@ export default {
       }
       return (zero + num).slice(-digit);
     },
+    addTodo() {
+      const todo = {
+          id: 1,
+          text: document.querySelector('input.input-todo').value,
+      };
+      if (this.todo !== "") {
+        this.dummyList.push(todo);
+        alert("할일 추가: " + this.todo)
+      } else {
+        alert("다시 입력하세요");
+      }
+      this.todo = "";
+    },  
+    deleteTodo(index) {
+        this.dummyList.splice(index,1);
+        console.log(index)
+    }
+  },
+  data() {
+    return {
+      week: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
+      time: "",
+      date: "",
+      dummyList,
+      todo: "",
+      i: 0,
+    };
   },
 };
 </script>
@@ -76,12 +109,17 @@ export default {
   font-weight: 500;
 }
 
-.logo{
+.logo {
   font-size: 50px;
   font-weight: 300;
 }
 
-.list{
+#todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.list {
   border: 2px solid gray;
   width: 300px;
   background-color: #87d6b2;
@@ -90,11 +128,20 @@ export default {
   border-radius: 5px;
 }
 
-.main{
+#deletebtn {
+  color: red;
+  width: 20px;
+  font-size: 10px;
+  border-radius: 50px;
+  border: 1px solid lightgrey;
+  padding: 3px;
+  margin: 10px;
+  align-items: center;
+}
+.main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 </style>
