@@ -137,7 +137,6 @@ export default {
   border: 1px solid green;
   padding: 3px;
   margin: 10px;
-  align-items: center;
   background-color: #fff8f8;
 }
 .main {
