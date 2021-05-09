@@ -1,29 +1,32 @@
 <template>
   <header class="main">
-          <h1 class="logo">To Do List</h1>
-      <div id="clock">
+    <h1 class="logo">To Do List</h1>
+    <div id="clock">
       <v-icon small></v-icon> {{ date }}
       <br />
       <v-icon small></v-icon> {{ time }}
     </div>
     <div class="list">
       <div>
-        <div id="todo"
-          v-for="(content, index)  in dummyList"
-          v-bind:key=index>
+        <div id="todo" v-for="(content, index) in dummyList" v-bind:key="index">
           <p class="text">
-            {{content.text}}
+            {{ content.text }}
           </p>
-        <button id="deletebtn"  @click="deleteTodo(index)">X</button>
+          <button id="deletebtn" @click="deleteTodo(index)">X</button>
         </div>
       </div>
     </div>
-       <div id="creator">
-          <div>
-            <input type="text" class="input-todo"  v-model="todo" placeholder="Enter to do"
-              v-on:keyup.enter="addTodo">
-           <button type="submit" @click="addTodo">add</button>
-         </div>
+    <div id="creator">
+      <div>
+        <input
+          type="text"
+          class="input-todo"
+          v-model="todo"
+          placeholder="Enter to do"
+          v-on:keyup.enter="addTodo"
+        />
+        <button type="submit" @click="addTodo">add</button>
+      </div>
     </div>
   </header>
 </template>
@@ -31,13 +34,11 @@
 <script>
 // @ is an alias to /src
 
-const dummyList = [
-];
+const dummyList = [];
 
 export default {
   name: "Home",
-  components: {
-  },
+  components: {},
   mounted() {
     setInterval(this.updateTime, 1000); // 1초마다 시간 갱신
   },
@@ -70,21 +71,21 @@ export default {
     },
     addTodo() {
       const todo = {
-          id: 1,
-          text: document.querySelector('input.input-todo').value,
+        id: 1,
+        text: document.querySelector("input.input-todo").value,
       };
       if (this.todo !== "") {
         this.dummyList.push(todo);
-        alert("할일 추가: " + this.todo)
+        alert("할일 추가: " + this.todo);
       } else {
         alert("다시 입력하세요");
       }
       this.todo = "";
-    },  
+    },
     deleteTodo(index) {
-        this.dummyList.splice(index,1);
-        console.log(index)
-    }
+      this.dummyList.splice(index, 1);
+      console.log(index);
+    },
   },
   data() {
     return {
@@ -133,10 +134,11 @@ export default {
   width: 20px;
   font-size: 10px;
   border-radius: 50px;
-  border: 1px solid lightgrey;
+  border: 1px solid green;
   padding: 3px;
   margin: 10px;
   align-items: center;
+  background-color: #fff8f8;
 }
 .main {
   display: flex;
