@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Today</router-link> 
+    <router-link to="/">Today</router-link>
+    <router-link to="/Main">Main</router-link>
   </div>
   <router-view />
 </template>
